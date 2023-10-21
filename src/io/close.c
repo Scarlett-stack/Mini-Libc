@@ -8,5 +8,15 @@
 int close(int fd)
 {
 	/* TODO: Implement close(). */
-	return -1;
+	if (fd < 0)
+	{
+		return -1;
+	}
+	int rax = syscall(3,fd); //sper sa fie syscallul close
+	if (rax == -1) //merge e ok
+	{
+		return -1;
+	}
+	return 0;
+	
 }
