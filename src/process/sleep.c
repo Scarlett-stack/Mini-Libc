@@ -15,3 +15,5 @@ unsigned int sleep(unsigned int seconds)
 		return tv.tv_sec;
 	return 0; 
 }
+//sursa de inspiratie : 
+//https://stackoverflow.com/questions/7684359/how-to-use-nanosleep-in-c-what-are-tim-tv-sec-and-tim-tv-nsec
