@@ -12,10 +12,9 @@ int truncate(const char *path, off_t length)
 		errno = EINVAL;
 		return -1;
 	}
-	int rax = syscall(76,path,length);
+	int rax = syscall(76, path, length);
 	errno = -rax;
 	if (rax < 0)
 		return -1;
 	return rax;
-
 }

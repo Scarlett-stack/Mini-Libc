@@ -4,12 +4,10 @@
 #include <internal/syscall.h>
 #include <errno.h>
 #include <internal/types.h>
-
 int ftruncate(int fd, off_t length)
-{	
-	
+{
 	/* TODO: Implement ftruncate(). */
-	if (length < 0 )
+	if (length < 0)
 	{
 		errno = EINVAL;
 		return -1;
@@ -19,13 +17,11 @@ int ftruncate(int fd, off_t length)
 		errno = EBADF;
 		return -1;
 	}
-	int rax = syscall(77,fd,length);
+	int rax = syscall(77, fd, length);
 	if (rax < 0)
-	{	
+	{
 		errno = -rax;
 		return -1;
 	}
 	return rax;
-	
-	
 }

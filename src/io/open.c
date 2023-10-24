@@ -32,4 +32,4 @@ int open(const char *filename, int flags, ...)
 
 	return rax;
 }
-//sursa de inpiratie : https://opensource.apple.com/source/Libc/Libc-583/sys/open.c.auto.html
+// sursa de inpiratie : https://opensource.apple.com/source/Libc/Libc-583/sys/open.c.auto.html
