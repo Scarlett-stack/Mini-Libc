@@ -14,6 +14,7 @@ void mem_list_init(void)
 	mem_list_head.next = &mem_list_head;
 }
 
+
 static struct mem_list *mem_list_alloc(void)
 {
 	return mmap(NULL, sizeof(struct mem_list), PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
@@ -71,7 +72,6 @@ static struct mem_list *mem_list_extract(void *start)
 
 	return item;
 }
-
 int mem_list_del(void *start)
 {
 	struct mem_list *item;
