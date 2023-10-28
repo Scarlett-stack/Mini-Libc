@@ -140,7 +140,7 @@ char *strchr(const char *str, int c)
 	unsigned int i;
 	for (i = 0; *(str + i) != '\0'; i++)
 		if (*(str + i) == c)
-			return str + i;
+			return (char*)(str + i);
 	return NULL;
 }
 
@@ -150,7 +150,7 @@ char *strrchr(const char *str, int c)
 	deci ma deplaez invers si ma opresc pe prima
 	aparitie din capatul final
 	adica scad end */
-	char *end = str + strlen(str);
+	char *end =(char*) (str + strlen(str));
 	while (end != str)
 	{
 		if (*end == c)
@@ -177,8 +177,8 @@ char *strstr(const char *haystack, const char *needle)
 	char *needle_copie;
 	while (*haystack != '\0')
 	{
-		haystack_copie = haystack;
-		needle_copie = needle;
+		haystack_copie = (char *) haystack;
+		needle_copie = (char *) needle;
 		while (*needle_copie != '\0' && *haystack_copie == *needle_copie)
 		{
 			haystack_copie++;
@@ -199,7 +199,7 @@ char *strrstr(const char *haystack, const char *needle)
 	ci pe ultima deci tot apelez strstr pana nu il mai gasesc
 	pe needle si daca ii gasesc o aparitie continui cautarea de la acea
 	adresa */
-	char *iterator_string = haystack;
+	char *iterator_string =(char *) haystack;
 	char *ultimul = NULL;
 	while (strstr(iterator_string, needle))
 	{

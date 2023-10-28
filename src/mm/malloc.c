@@ -62,6 +62,7 @@ void free(void *ptr)
 	// si verific si ce returneaza munmap
 	// daca e codul bun , il sterg din lista pe acel pointer
 	struct mem_list *bloc_de_parcurs;
+	int sters;
 	bloc_de_parcurs = mem_list_find(ptr);
 	if (bloc_de_parcurs == NULL)
 		return;
@@ -69,7 +70,9 @@ void free(void *ptr)
 	int gasit = munmap(bloc_de_parcurs->start, bloc_de_parcurs->len);
 	if (gasit == -1)
 		return;
-	int sters = mem_list_del(bloc_de_parcurs->start);
+	sters = mem_list_del(bloc_de_parcurs->start);
+	if (sters == -1)
+		return;
 	return;
 }
 
