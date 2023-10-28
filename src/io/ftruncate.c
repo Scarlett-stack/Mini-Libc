@@ -6,7 +6,10 @@
 #include <internal/types.h>
 int ftruncate(int fd, off_t length)
 {
-	/* TODO: Implement ftruncate(). */
+	//verific paramtrii sa fie valizi
+	//altfel fac syscallul
+	//si returnez valoarea daca e buna
+	//altfel -1
 	if (length < 0)
 	{
 		errno = EINVAL;

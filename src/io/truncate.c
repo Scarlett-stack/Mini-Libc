@@ -6,7 +6,7 @@
 #include <internal/types.h>
 int truncate(const char *path, off_t length)
 {
-	/* TODO: Implement truncate(). */
+	//aceasi procedura
 	if (length < 0)
 	{
 		errno = EINVAL;

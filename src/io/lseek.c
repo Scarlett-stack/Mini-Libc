@@ -7,7 +7,7 @@
 
 off_t lseek(int fd, off_t offset, int whence)
 {
-	/* TODO: Implement lseek(). */
+	//la fel verific, syscall, return
 	if (fd < 0)
 	{
 		errno = EBADF;

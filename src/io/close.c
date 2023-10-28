@@ -7,7 +7,9 @@
 
 int close(int fd)
 {
-	/* TODO: Implement close(). */
+	//se verif fd daca e valid
+	//fac sys_close id fiind 3
+	//verific rax
 	if (fd < 0)
 	{
 		return -1;

@@ -6,7 +6,10 @@
 
 int fstat(int fd, struct stat *st)
 {
-	/* TODO: Implement fstat(). */
+	//verific fd sa fie valid
+	//apelez syscallul lui fstat
+	//verfic ce returneaza syscallul
+	// dau lui errno = -rax daca rax < 0, adica e cv prost
 	if (fd < 0)
 	{
 		errno = EBADF;
@@ -19,4 +22,6 @@ int fstat(int fd, struct stat *st)
 		return -1;
 	}
 	return rax;
+	//sursa de inspiratie-documentatie:
+	//https://linux.die.net/man/2/fstat
 }

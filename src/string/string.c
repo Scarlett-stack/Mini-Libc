@@ -4,76 +4,91 @@
 
 char *strcpy(char *destination, const char *source)
 {
-	/* TODO: Implement strcpy(). */
-
-	char *iterator = destination;
+	/*m-am obisnuit de la iocla
+	sa scriu cu pointeri si nu cu []
+	pornesc de la primul caracter din destination
+	si il pun in iterator_String
+	pana cand ajung la termiantor
+	si pe ala il pun in afara while-ului ca altfel as
+	ramana e fara \0
+	 */
+	char *iterator_string = destination;
 	while (*source != '\0')
 	{
-		*iterator = *source;
+		*iterator_string = *source;
 		source++;
-		iterator++;
+		iterator_string++;
 	}
-	*iterator = '\0';
+	*iterator_string = '\0';
 	return destination;
 }
 
 char *strncpy(char *destination, const char *source, size_t len)
 {
-	/* TODO: Implement strncpy(). */
-	char *iterator = destination;
-	int i = 0;
+	/* copiez primele len chars din source
+	la fel ca la strcpy doar ca ma duc pana in len
+	 */
+	char *iterator_string = destination;
+	size_t i = 0;
 	while (i <= len)
 	{
-		*iterator = *source;
-		iterator++;
+		*iterator_string = *source;
+		iterator_string++;
 		source++;
 		i++;
 	}
-	*iterator = '\0';
+	*iterator_string = '\0';
 
 	return destination;
 }
 
 char *strcat(char *destination, const char *source)
 {
-	/* TODO: Implement strcat(). */
-	char *iterator = destination;
-	while (*iterator)
+	/* ma duc pana la capatul destinatiei
+	si de acolo incep sa adaug si celalat string */
+	char *iterator_string = destination;
+	while (*iterator_string)
 	{
-		iterator++;
+		iterator_string++;
 	}
 	while (*source)
 	{
-		*iterator = *source;
+		*iterator_string = *source;
 		source++;
-		iterator++;
+		iterator_string++;
 	}
-	*iterator = '\0';
+	*iterator_string = '\0';
 	return destination;
 }
 
 char *strncat(char *destination, const char *source, size_t len)
 {
-	/* TODO: Implement strncat(). */
-	int i = 0;
-	char *iterator = destination + strlen(destination);
+	/* la fel ma duc pana la capatul destnatiei
+	si adaug incepand de aoclo primele len chars din source */
+	size_t i = 0;
+	char *iterator_string = destination + strlen(destination);
 
 	while (i < len)
 	{
-		*iterator = *source;
+		*iterator_string = *source;
 		source++;
-		iterator++;
+		iterator_string++;
 		i++;
 	}
-	*iterator = '\0';
+	*iterator_string = '\0';
 
 	return destination;
 }
 
 int strcmp(const char *str1, const char *str2)
 {
-	/* TODO: Implement strcmp(). */
-	// for (; *str1 != '\0' && *str2 !='\0' && *str1 == *str2; str1++, str2++);
+	/* ma duc in ameble stringuri
+	simultan pana cand fir ajung pe terminator
+	sau cand am gasit un char diferit
+	Apoi verific pe care dintre cdt sa oprit
+	si returnez 0 daca s-au oprit pe \0 ->sunt egale
+	-1 daca dif de chars e mai mica ca 0
+	si implicit 1 adica dif de chars e >0  */
 	while (*str1 == *str2 && *str1 != '\0' && *str2 != '\0')
 	{
 		str1++;
@@ -89,8 +104,9 @@ int strcmp(const char *str1, const char *str2)
 
 int strncmp(const char *str1, const char *str2, size_t len)
 {
-	/* TODO: Implement strncmp(). */
-	unsigned int i = len;
+	/* la fel ca la strcmp dar mai am
+	in while cdt de oprire pana la len */
+	size_t i = len;
 	while (*str1 == *str2 && *str1 != '\0' && *str2 != '\0' && i <= len)
 	{
 		str1++;
@@ -117,7 +133,10 @@ size_t strlen(const char *str)
 
 char *strchr(const char *str, int c)
 {
-	/* TODO: Implement strchr(). */
+	/*aici am vrut s afac cu for ca mam plictist de while
+	verific ca nu sunt pe \0 si compar
+	cu charul dat ca arg si returnez adresa
+	altefl ies din for si nu lam gasit deci NULL */
 	unsigned int i;
 	for (i = 0; *(str + i) != '\0'; i++)
 		if (*(str + i) == c)
@@ -127,7 +146,10 @@ char *strchr(const char *str, int c)
 
 char *strrchr(const char *str, int c)
 {
-	/* TODO: Implement strrchr(). */
+	/* astea cu rr incep de la coada
+	deci ma deplaez invers si ma opresc pe prima
+	aparitie din capatul final
+	adica scad end */
 	char *end = str + strlen(str);
 	while (end != str)
 	{
@@ -140,19 +162,29 @@ char *strrchr(const char *str, int c)
 
 char *strstr(const char *haystack, const char *needle)
 {
-	/* TODO: Implement strstr(). */
-	char *it1;
-	char *it2;
+	/* aici verific subsecventele sa vad
+	daca gasesc needle
+	deci iau copii la fiecare si iau fiecare subsir de lungime alui needle
+	din haystack
+	daca ajung pe \0 la needle inseamna ca l-am gasit
+	fac un cast la char * la adresa din haystack pt
+	ca functia nu retunreza const char *
+	altfel ma duc mai departe in haystack
+	daca ies din while inseamna ca nu am gasit
+	dau NULL
+	 */
+	char *haystack_copie;
+	char *needle_copie;
 	while (*haystack != '\0')
 	{
-		it1 = haystack;
-		it2 = needle;
-		while (*it2 != '\0' && *it1 == *it2)
+		haystack_copie = haystack;
+		needle_copie = needle;
+		while (*needle_copie != '\0' && *haystack_copie == *needle_copie)
 		{
-			it1++;
-			it2++;
+			haystack_copie++;
+			needle_copie++;
 		}
-		if (*it2 == '\0')
+		if (*needle_copie == '\0')
 		{
 			return (char *)haystack;
 		}
@@ -163,14 +195,17 @@ char *strstr(const char *haystack, const char *needle)
 
 char *strrstr(const char *haystack, const char *needle)
 {
-	/* TODO: Implement strrstr(). */
-	char *iterator = haystack;
+	/* aici nu ma opresc pe prima aparitie
+	ci pe ultima deci tot apelez strstr pana nu il mai gasesc
+	pe needle si daca ii gasesc o aparitie continui cautarea de la acea
+	adresa */
+	char *iterator_string = haystack;
 	char *ultimul = NULL;
-	while (strstr(iterator, needle))
+	while (strstr(iterator_string, needle))
 	{
-		iterator = strstr(iterator, needle);
-		ultimul = iterator;
-		iterator++;
+		iterator_string = strstr(iterator_string, needle);
+		ultimul = iterator_string;
+		iterator_string++;
 	}
 	if (ultimul != NULL)
 		return ultimul;
@@ -179,36 +214,48 @@ char *strrstr(const char *haystack, const char *needle)
 
 void *memcpy(void *destination, const void *source, size_t num)
 {
-	/* TODO: Implement memcpy(). */
+	/* aparent trb castate la char * argumentele
+	efectiv copiez din src in dest
+	char cu char */
 	unsigned int i;
-	char *dest = (char *)destination;
-	char *src = (char *)source;
+	char *destinatie_nou = (char *)destination;
+	char *src_nou = (char *)source;
 	for (i = 0; i < num; i++)
 	{
-		*(dest + i) = *(src + i);
+		*(destinatie_nou + i) = *(src_nou + i);
 	}
-	// return destination;
+	return destinatie_nou;
 }
 
-void *memmove(void *destination, const void *source, size_t num) // 2 dau fail??? doamne nu ma lasa!
+void *memmove(void *destination, const void *source, size_t num)
 {
-	/* TODO: Implement memmove(). */
+	/* mai teoretic se declara un buffer intermediar de size num
+	da nu imi merge asa.
+	Asa ca problema ramane daca source e o adresa de inceput
+	sau mai mica in acelasi string destination.
+	 */
 
-	char *dest = (char *)destination;
-	const char *src = (const char *)source;
-
-	if (dest > src && dest < src + num)
+	char *destiatie_nou = (char *)destination;
+	const char *src_nou = (const char *)source;
+	if (destiatie_nou == src_nou)
+	return destiatie_nou;
+	// verific daca am overlapp , adica daca se suprapun
+	// adica daca cumva dest > src si des < src + cat chr copiez
+	// daca da le duc pe ambele adrese la capat
+	// si copiez de la capete  in destinatie_nou charurile
+	// altfel nu se suparpun si copiez normal
+	if (destiatie_nou > src_nou && destiatie_nou < src_nou + num)
 	{
-		dest += num;
-		src += num;
+		destiatie_nou += num;
+		src_nou += num;
 		while (num--)
 		{
-			*(--dest) = *(--src);
+			*(--destiatie_nou) = *(--src_nou);
 		}
 	} else {
 		while (num--)
 		{
-			*dest++ = *src++;
+			*destiatie_nou++ = *src_nou++;
 		}
 	}
 	return destination;
@@ -216,7 +263,11 @@ void *memmove(void *destination, const void *source, size_t num) // 2 dau fail??
 
 int memcmp(const void *ptr1, const void *ptr2, size_t num)
 {
-	/* TODO: Implement memcmp(). */
+	/* asta compara continutul de la doua adrese primii num bytes
+	le fac cast si verific daca sunt diferite
+	returnez dif altfel continui si daca ies din while
+	inseamna ca sunt egali primi num bytes
+	*/
 	char *copie_ptr1 = (char *)ptr1;
 	char *copie_ptr2 = (char *)ptr2;
 

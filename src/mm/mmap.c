@@ -6,10 +6,10 @@
 
 void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset)
 {
-	/* TODO: Implement mmap(). */
-
+	//aici e treba de cast la ce trb
+	//long la adresa si int la rax ca sa calculez errno
 	long rax = syscall(9, addr, length, prot, flags, fd, offset);
-	// pune frt argumentele toate
+	// nu mergea ca nu puneam toate args :[
 	errno = (int)-rax;
 	if (rax < 0)
 	{
@@ -22,7 +22,7 @@ void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset)
 
 void *mremap(void *old_address, size_t old_size, size_t new_size, int flags)
 {
-	/* TODO: Implement mremap(). */
+	//pretty much the same
 	long rax = syscall(25, old_address, old_size, new_size, flags);
 	if (rax < 0)
 		return MAP_FAILED;
@@ -31,7 +31,7 @@ void *mremap(void *old_address, size_t old_size, size_t new_size, int flags)
 
 int munmap(void *addr, size_t length)
 {
-	/* TODO: Implement munmap(). */
+	//aici am errno
 	int rax = syscall(11, addr, length);
 	errno = -rax;
 	if (rax < 0)
