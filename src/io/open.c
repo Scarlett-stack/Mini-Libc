@@ -18,8 +18,6 @@ int open(const char *filename, int flags, ...)
 	*/
 	int mod_deschidere;
 	va_list argumente; // argumente = o lista tip va_list
-	int caz1 = 0;
-
 	va_start(argumente, flags); // de unde incepe nr de arg var?
 	if (flags & O_CREAT == 0)	// fis exista
 	{
