@@ -17,16 +17,14 @@ int open(const char *filename, int flags, ...)
 	si extrag urm int care e si modul de deschidere
 	*/
 	int mod_deschidere;
-	va_list argumente; // argumente = o lista tip va_list
-	va_start(argumente, flags); // de unde incepe nr de arg var?
-	if (flags & O_CREAT == 0)	// fis exista
-	{
-		// errno = ENOENT;
-		return -1;
-	}
-	mod_deschidere = va_arg(argumente, int); // teoretic modul e int
-	va_end(argumente);						 // inchid macroul
 
+	if (flags & O_CREAT) // fis exista
+	{
+		va_list argumente;						 // argumente = o lista tip va_list
+		va_start(argumente, flags);				 // de unde incepe nr de arg var?
+		mod_deschidere = va_arg(argumente, int); // teoretic modul e int
+		va_end(argumente);						 // inchid macroul
+	}
 	int rax = syscall(2, filename, flags, mod_deschidere);
 	errno = -rax;
 	if (rax < 0) // ceva e in neregula
